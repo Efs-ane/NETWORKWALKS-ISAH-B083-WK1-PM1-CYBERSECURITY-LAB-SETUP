@@ -41,20 +41,20 @@ Activities:
 ---
 
 ## lab Configuration
-|   component          |    configuration   |
-| -------------------- | -------------------|
-|  Host OS             |   Windows 11       |
-|  Host RAM            |   20 GB            |
-|  Processor           |   Intel Core i5    |    
-|  Hypervisor          |   
-|  Security OS         |
-|  Kali RAM            |
-|  Virtual Network     |
-|  Network Address     |
-|  Kali IP Address     |
-|  Default Gateway     |
-|  DNS Server          |
-|  Future VM Range     |
+|   component          |    configuration     |
+| -------------------- | ---------------------|
+|  Host OS             |   Windows 11         |
+|  Host RAM            |   20 GB              |
+|  Processor           |   Intel Core i3      |    
+|  Hypervisor          |   VirtualBox 7.2     |
+|  Security OS         |   Kali Linux 2026.2  |
+|  Kali RAM            |   2048 MB            |
+|  Virtual Network     |   NAT Network        |
+|  Network Address     |   10.0.0.0/24        |
+|  Kali IP Address     |   10.0.0.2/24        |
+|  Default Gateway     |   10.0.0.1           |
+|  DNS Server          |   10.0.0.1           |
+|  Future VM Range     |   10.0.0.3-10.0.0.99 |
 
 
 
