@@ -15,15 +15,15 @@ to support practical security exercises, including reconnaisance, network scanni
 
 ## OBJECTIVES;
 
--Install and configure VirtualBox
--Install\import Kali Linux as a virtual machine.
--Create a private NAT Network for the cybersecurity lab
--Configure network connectivity for kali linux
--Assign an IP address to the kali VM 
--Verify network connectivity and DNS resolution
--Take a clean VM snapshot for recovery
--Document the complete setup process 
--Prepare the environment for future cybersecurity projects
+- Install and configure VirtualBox
+- Install\import Kali Linux as a virtual machine.
+- Create a private NAT Network for the cybersecurity lab
+- Configure network connectivity for kali linux
+- Assign an IP address to the kali VM 
+- Verify network connectivity and DNS resolution
+- Take a clean VM snapshot for recovery
+- Document the complete setup process 
+- Prepare the environment for future cybersecurity projects
 
 ---
 ## purpose of the Lab
