@@ -256,7 +256,7 @@ This laboratory is intended strictly for educational purposes only.
 ---
 
 # Author
-**Isah Suleiman**\
+**Isah Suleiman**
 
 LinkedIn:
 
