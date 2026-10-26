@@ -170,13 +170,31 @@ DNS:
 
 # Problems Encountered & solutions
 
-## Problem 1. Wired Connection failing to work After Static IP Configuration
+## Problem 1. Kali had working internet in plain NAT mode but not in NAT Network mode. The guide we were following used a static configuration: IP 10.0.0.2/24, gateway 10.0.0.1, DNS 8.8.8.8
 
-After manually configuring the IPv4 setting, Internet Connectivity kept failing 
+what i assumed was wrong(in order)
+1. Mode mismatch. Plain NAT work automatically, while NAT Network must be created and configured. This was correct, but only part of the story
+2. Address range mismatch. VirtualBox defaults to 10.0.2.0/24, while the guide's addresses sit in 10.0.0.0/24. The fix was to create a NAT Network with the prefix 10.0.0.0/24. This was also correct
+3. No IP on eth0. The ip a output showed the link was up but had no inet line, so the static settings had never been applied.
+4. Failed ping to the gateway. I first assumed this meant a wrong prefix. VirtualBox's gateway doesn't answer pings, so this was normal. The successful ping to 8.8.8.8 showed routing was fine
+5. DNS failure. ping google.com failed with temporary failure in name resolution", SO there was no working nameserver. I assumed NetworkManager settings to make it stick
+6. "IP configuration could not be reserved" error. I first assumed the profile was still on DHCP. That didn't fix it, i then recreated a clean profile(kali-static) bound to eth0, and the error persisted
+7. The actual cause(most likely)
+10.0.0.2 is reserved by VirtualBox inside a NETNetwork(it acts as the host loopback address) NetworkManager's duplicate-address check saw it as taken and refused to activate the connection. I should have detect this as soon as i saw the guide address
+## what fixed it?
+- Created a NAT Network with prefix 10.0.0.0/24
+- Attached the VM's adapter to it
+- Created a static NetworkManager profile bound to eth0(gateway 10.0.0.1, DNS 8.8.8.8)
+- Cleared leftover addresses with ip addr flush dev eth0
+- Disabled the duplicate-address check(ipv4.dad-timeout 0)
+- Fallback: using a different address such as 10.0.0.10
+## Lessons
+- A failed ping to the VirtualBox gateway doesn't necessarily mean the network is broken
+- Test in layers: IP, then gateway/routing(ping 8.8.8.8), then DNS(ping google.com).
+- If the guide hardcores 10.0.0.2, check wether it clashes with VirtualBox's reserved addresses before debugging further
+- Wherever the guide mentions 10.0.0.2 later, use whichever address you end up with
+- 
 
-The Workaround used for this problem is:
-
-i had to change the DNS address from 8.8.8.8 to 10.0.0.1
 ---
 
 
