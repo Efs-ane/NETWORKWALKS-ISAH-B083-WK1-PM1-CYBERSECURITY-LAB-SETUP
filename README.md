@@ -43,7 +43,15 @@ Activities:
 ---
 ## Lab Architecture
 
+![](1-screenshot-lab-Architecture.png)
+
+Additional target machines can be added to the same virtual network in future projects
+
+---
+
+
 ## lab Configuration
+
 |   component          |    configuration     |
 | -------------------- | ---------------------|
 |  Host OS             |   Windows 11         |
@@ -56,11 +64,11 @@ Activities:
 |  Network Address     |   10.0.0.0/24        |
 |  Kali IP Address     |   10.0.0.2/24        |
 |  Default Gateway     |   10.0.0.1           |
-|  DNS Server          |   10.0.0.1           |
+|  DNS Server          |   8.8.8.8            |
 |  Future VM Range     |   10.0.0.3-10.0.0.99 |
 
 ---
-#Lab Setup Procedure
+# Lab Setup Procedure
 
 ## Step 1. Install 7-Zip
 7-zip will be used to extract the kali linux virtual machine package, which may be distributed as a '.7z' archive.
@@ -85,31 +93,34 @@ IPv4 Prefix : 10.0.0.0/24
 DHCP        : Enabled
 IPv6        : Disabled
 
-
+![](2-screenshot-network-settings1.png)
 
 A **Nat Network** was selected so that multiple virtual machines can connect to the same NAT Network and communicate with one another while also having outbound network connectivity.
 
 This will allow future attacker and target VMs to communicate within the lab.
 
 ---
+
 ## Step 4. Import Kali Linux
 
 The kali Linux virtual machine was downloaded from the official kali linux website and imported into VirtualBox
 
 Below is the VM network adapter configuration:
-'''text
+
+```text
 Adapter 1
 Attached to: NAT Network
 Network    : NatNetwork
 Adapter Type: Intel PRO/1000 MT Desktop
-'''
+```
+
 VM was allocated:
-'''text
+
+```text
 RAM: 2048 MB
-'''
-
+```
+![](3-screenshot-kali-linux.png)
 A shared folder was also configured for transferring required files between the host operating system and the kali VM.
-
 
 
 
@@ -121,15 +132,16 @@ The Kali Linux network configuration was checked and configured with a consisten
 
 Example configuration:
 
-'''text
+```text
 IP Address:   10.0.0.2
 Subnet Mask:  255.255.255.0
 Gateway:      10.0.0.1
-DNS:          10.0.0.1
-'''
+DNS:          8.8.8.8
+```
+
 A consistent IP address makes it easier to document the lab and reference the kali machine in future exercise
 
-
+![](4-screenshot-kali-network-settings.png)
 
 ---
 
@@ -139,15 +151,19 @@ After completing the initial configuration, a VirtualBox snapshot was created.
 
 Example snapshot name:
 
-'''text
+```text
 Clean Kali - Network Setup
+```
 
 The snapshot represents the clean baseline of the laboratory.
+
 If a future exercise changes or damages the VM configuration, the machine can be restored to this baseline.
+
 
 ---
 
-# Lab Verification
+#  Lab Verification
+
 |    Test                                |        Command                     |    Expected result               |
 | -------------------------------------- | ---------------------------------- | -------------------------------- |
 |    check IP address                    |    'ip a'                          | correct kali IP displayed        |
@@ -159,7 +175,7 @@ If a future exercise changes or damages the VM configuration, the machine can be
 
 ### Example Results
 
-'''text
+```text
 IP Address:
 10.0.0.2/24
 
@@ -167,23 +183,26 @@ Gateway:
 10.0.0.1
 
 DNS:
-10.0.0.1
+8.8.8.8
+```
 
 ---
 
 # Problems Encountered & solutions
 
-## Problem 1. Kali had working internet in plain NAT mode but not in NAT Network mode. The guide we were following used a static configuration: IP 10.0.0.2/24, gateway 10.0.0.1, DNS 8.8.8.8
+## Problem 1. Kali had working internet in plain NAT mode but not in NAT Network mode.
 
+The guide we were following used a static configuration: IP 10.0.0.2/24, gateway 10.0.0.1, DNS 8.8.8.8
 what i assumed was wrong(in order)
 1. Mode mismatch. Plain NAT work automatically, while NAT Network must be created and configured. This was correct, but only part of the story
 2. Address range mismatch. VirtualBox defaults to 10.0.2.0/24, while the guide's addresses sit in 10.0.0.0/24. The fix was to create a NAT Network with the prefix 10.0.0.0/24. This was also correct
-3. No IP on eth0. The ip a output showed the link was up but had no inet line, so the static settings had never been applied.
+3. No IP on eth0. The ```ip a``` output showed the link was up but had no ```inet line```, so the static settings had never been applied.
 4. Failed ping to the gateway. I first assumed this meant a wrong prefix. VirtualBox's gateway doesn't answer pings, so this was normal. The successful ping to 8.8.8.8 showed routing was fine
-5. DNS failure. ping google.com failed with temporary failure in name resolution", SO there was no working nameserver. I assumed NetworkManager settings to make it stick
+5. DNS failure: ```ping google.com```failed with temporary failure in name resolution", SO there was no working nameserver. I assumed NetworkManager settings to make it stick
 6. "IP configuration could not be reserved" error. I first assumed the profile was still on DHCP. That didn't fix it, i then recreated a clean profile(kali-static) bound to eth0, and the error persisted
 7. The actual cause(most likely)
 10.0.0.2 is reserved by VirtualBox inside a NETNetwork(it acts as the host loopback address) NetworkManager's duplicate-address check saw it as taken and refused to activate the connection. I should have detect this as soon as i saw the guide address
+   
 ## what fixed it?
 - Created a NAT Network with prefix 10.0.0.0/24
 - Attached the VM's adapter to it
@@ -191,12 +210,13 @@ what i assumed was wrong(in order)
 - Cleared leftover addresses with ip addr flush dev eth0
 - Disabled the duplicate-address check(ipv4.dad-timeout 0)
 - Fallback: using a different address such as 10.0.0.10
+- 
 ## Lessons
 - A failed ping to the VirtualBox gateway doesn't necessarily mean the network is broken
 - Test in layers: IP, then gateway/routing(ping 8.8.8.8), then DNS(ping google.com).
 - If the guide hardcores 10.0.0.2, check wether it clashes with VirtualBox's reserved addresses before debugging further
 - Wherever the guide mentions 10.0.0.2 later, use whichever address you end up with
-- 
+  
 
 ---
 
@@ -224,7 +244,9 @@ I learned that documenting commands, configuration, screenshots, problems, and s
 ---
 
 # Security & Ethical Use
+
 This laboratory is intended strictly for educational purposes only.
+
 ---
 # Tools & Resources
 - **7-zip:**
