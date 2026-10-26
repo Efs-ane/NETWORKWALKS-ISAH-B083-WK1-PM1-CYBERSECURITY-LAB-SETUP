@@ -59,7 +59,7 @@ Activities:
 ---
 #Lab Setup Procedure
 
-##Step 1. Install 7-Zip
+## Step 1. Install 7-Zip
 7-zip will be used to extract the kali linux virtual machine package, which may be distributed as a '.7z' archive.
 
 **Tool:** 7-zip
@@ -127,6 +127,44 @@ DNS:          10.0.0.1
 A consistent IP address makes it easier to document the lab and reference the kali machine in future exercise
 
 
+
+---
+
+## Step 6. Create a Clean VM Snapshot
+
+After completing the initial configuration, a VirtualBox snapshot was created.
+
+Example snapshot name:
+
+'''text
+Clean Kali - Network Setup
+
+The snapshot represents the clean baseline of the laboratory.
+If a future exercise changes or damages the VM configuration, the machine can be restored to this baseline.
+
+---
+
+# Lab Verification
+|    Test                                |        Command                     |    Expected result               |
+| -------------------------------------- | ---------------------------------- | -------------------------------- |
+|    check IP address                    |    'ip a'                          | correct kali IP displayed        |
+|    Test gateway                        |    'ping 10.0.0.1'                 | Successful replies               |
+|    Test Internet Connectivity          |    'ping 10.0.0.1||'               | Successful replies               |
+|    Test DNS resolution                 |    'nslookup networkwalks.com'     | Domain resolves                  |
+|    Verify Nmap                         |    'nmap --version'                | Nmap version displayed           |
+|    Verify snapshot                     |     Restore snapshot and run 'ip a'| Baseline configuration restored  |
+
+### Example Results
+
+'''text
+IP Address:
+10.0.0.2/24
+
+Gateway:
+10.0.0.1
+
+DNS:
+10.0.0.1
 
 ---
 
