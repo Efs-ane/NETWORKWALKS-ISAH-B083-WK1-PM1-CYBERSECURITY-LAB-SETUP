@@ -168,4 +168,16 @@ DNS:
 
 ---
 
+# Problems Encountered & solutions
+
+## Problem 1. Wired Connection failing to work After Static IP Configuration
+
+After manually configuring the IPv4 setting, Internet Connectivity kept failing 
+
+The Workaround used for this problem is:
+
+i had to change the DNS address from 8.8.8.8 to 10.0.0.1
+---
+
+
 
