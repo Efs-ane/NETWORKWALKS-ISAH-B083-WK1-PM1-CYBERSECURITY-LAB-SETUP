@@ -13,11 +13,11 @@ to support practical security exercises, including reconnaisance, network scanni
 
 ---
 
-## OBJECTIVES;
+## OBJECTIVES:
 
 - Install and configure VirtualBox
 - Install\import Kali Linux as a virtual machine.
-- Create a private NAT Network for the cybersecurity lab
+- Create a private **NAT Network** for the cybersecurity lab
 - Configure network connectivity for kali linux
 - Assign an IP address to the kali VM 
 - Verify network connectivity and DNS resolution
@@ -26,8 +26,10 @@ to support practical security exercises, including reconnaisance, network scanni
 - Prepare the environment for future cybersecurity projects
 
 ---
+
 ## purpose of the Lab
-The lap provides an isolated and controlled environment for cybersecurity learning and authorized security testing
+
+The lap provides a controlled environment for cybersecurity learning and authorized security testing
 
 Activities:
 
@@ -37,8 +39,9 @@ Activities:
 - Packet analysis
 - Web Security testing
 - Exploitation practice
-- Security-tool experimentatione
+- Security-tool experimentation
 ---
+## Lab Architecture
 
 ## lab Configuration
 |   component          |    configuration     |
@@ -197,5 +200,47 @@ what i assumed was wrong(in order)
 
 ---
 
+# What I Learned
+Through this project, I learned how to create and configure a virtual environment for cybersecurity practice
+
+The most important concepts I learned include:
+
+### 1. NAT vs NAT Network
+A standard NAT configuration and a NAT Network serve different purpose.
+A NAT Network allows multiple VMs connected to the same virtual network to communicate with one another while providing network address translation for external connectivity.
+This makes it useful for building a multi-machine cybersecurity laboratory.
+
+### 2. Virtual Machine Networking
+I learned how VirtualBox virtual network adapters connect virtual machines to different types of networks and how network configuration affects communication between machines
+
+### 3. Static IP Configuration
+I learned how to configure and verify ipv4 addressing, subnet masks, gateways, and DNS settings in kali linux
+### 4. VM Snapshots
+I learned that a clean snapshot should be created **before performing risky or experimental activities**
+this provides a known-good recovery point for future cybersecurity exercises
+
+### 5. Documentation
+I learned that documenting commands, configuration, screenshots, problems, and solutions is an important part of a professional cybersecurity project.
+---
+
+# Security & Ethical Use
+This laboratory is intended strictly for educational purposes only.
+---
+# Tools & Resources
+- **7-zip:**
+- **VirtualBox:**
+- **Kali Linux:**
+
+---
+
+# Author
+**Isah Suleiman**\
+
+LinkedIn:
+
+---
+
+## Project Information
+**Program Name:** Cybersecurity at Networkwalks | **week:** 01 | **Project:** Cybersecurity & Pentesting Lab Setup | **Repository:** GitHub
 
 
