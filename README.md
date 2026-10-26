@@ -4,7 +4,7 @@
     
 **Isolated virtual lab built with virtualBox and Kali linux for cybersecurity testing and penetration testing practice**
 </div>
----
+
 
 ## Project Overview: 
 
@@ -56,5 +56,78 @@ Activities:
 |  DNS Server          |   10.0.0.1           |
 |  Future VM Range     |   10.0.0.3-10.0.0.99 |
 
+---
+#Lab Setup Procedure
+
+##Step 1. Install 7-Zip
+7-zip will be used to extract the kali linux virtual machine package, which may be distributed as a '.7z' archive.
+
+**Tool:** 7-zip
+
+---
+
+## Step 2. Install virtualBox
+
+VirtualBox was installed as the hypervisor.
+
+---
+
+## Step 3. Create the NAT Network
+
+A dedicated NAT Network was created in VirtualBox
+
+Configuration:
+Network Name: NatNetwork
+IPv4 Prefix : 10.0.0.0/24
+DHCP        : Enabled
+IPv6        : Disabled
+
+
+
+A **Nat Network** was selected so that multiple virtual machines can connect to the same NAT Network and communicate with one another while also having outbound network connectivity.
+
+This will allow future attacker and target VMs to communicate within the lab.
+
+---
+## Step 4. Import Kali Linux
+
+The kali Linux virtual machine was downloaded from the official kali linux website and imported into VirtualBox
+
+Below is the VM network adapter configuration:
+'''text
+Adapter 1
+Attached to: NAT Network
+Network    : NatNetwork
+Adapter Type: Intel PRO/1000 MT Desktop
+'''
+VM was allocated:
+'''text
+RAM: 2048 MB
+'''
+
+A shared folder was also configured for transferring required files between the host operating system and the kali VM.
+
+
+
+
+---
+
+## Step 5. Kali Linux Network Configuration
+
+The Kali Linux network configuration was checked and configured with a consistent IPv4 address.
+
+Example configuration:
+
+'''text
+IP Address:   10.0.0.2
+Subnet Mask:  255.255.255.0
+Gateway:      10.0.0.1
+DNS:          10.0.0.1
+'''
+A consistent IP address makes it easier to document the lab and reference the kali machine in future exercise
+
+
+
+---
 
 
